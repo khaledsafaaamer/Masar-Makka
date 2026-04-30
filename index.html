@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masar Makkah — Investment Presentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #9A7A2E;
+    --orange: #E05A1C;
+    --orange-light: #FF7A42;
+    --dark: #0A0A0B;
+    --dark-2: #111113;
+    --dark-3: #1A1A1E;
+    --dark-4: #222226;
+    --mid: #2E2E34;
+    --border: rgba(201,168,76,0.2);
+    --text: #E8E4DC;
+    --text-muted: #9A9590;
+    --white: #FAFAF8;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:9999; opacity:0.35;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width:3px; }
+  ::-webkit-scrollbar-track { background:var(--dark); }
+  ::-webkit-scrollbar-thumb { background:var(--gold); border-radius:2px; }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:1000;
+    background: rgba(10,10,11,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .nav-logo {
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.25rem; font-weight:600; letter-spacing:0.08em;
+    color:var(--gold);
+    display:flex; align-items:center; gap:0.5rem;
+  }
+  .nav-logo span { color:var(--white); }
+  .nav-links { display:flex; gap:0.25rem; }
+  .nav-links a {
+    color:var(--text-muted); text-decoration:none;
+    font-size:0.7rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase;
+    padding:0.5rem 0.85rem; border-radius:3px;
+    transition: all 0.25s;
+  }
+  .nav-links a:hover { color:var(--gold); background:rgba(201,168,76,0.08); }
+  .nav-links a.active { color:var(--gold); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height:100vh;
+    position:relative;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:6rem 2rem 4rem;
+    overflow:hidden;
+  }
+  .hero-bg {
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 70%, rgba(224,90,28,0.06) 0%, transparent 60%),
+      linear-gradient(180deg, #0A0A0B 0%, #0F0F12 40%, #0A0A0B 100%);
+  }
+  .hero-grid {
+    position:absolute; inset:0; opacity:0.04;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.5) 1px, transparent 1px);
+    background-size:60px 60px;
+  }
+  .hero-kaaba-icon {
+    font-size:4rem; line-height:1; margin-bottom:1.5rem;
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)}
+  }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3);
+    border-radius:20px; padding:0.35rem 1rem;
+    font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:2rem;
+    animation: fadeInDown 0.8s ease both;
+  }
+  .hero-title {
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(3.5rem,8vw,7rem);
+    font-weight:300; line-height:1.05;
+    text-align:center; margin-bottom:1rem;
+    animation: fadeInUp 0.9s 0.1s ease both;
+  }
+  .hero-title .accent { color:var(--gold); font-style:italic; }
+  .hero-arabic {
+    font-family:'Noto Naskh Arabic', serif;
+    font-size:clamp(1.5rem,3vw,2.5rem);
+    color:var(--gold-light); text-align:center;
+    margin-bottom:2rem; direction:rtl;
+    animation: fadeInUp 1s 0.2s ease both;
+  }
+  .hero-sub {
+    font-size:0.85rem; font-weight:400; letter-spacing:0.12em;
+    color:var(--text-muted); text-align:center; max-width:600px;
+    margin-bottom:3.5rem; text-transform:uppercase;
+    animation: fadeInUp 1s 0.3s ease both;
+  }
+  .hero-stats {
+    display:flex; gap:2rem; flex-wrap:wrap; justify-content:center;
+    animation: fadeInUp 1s 0.4s ease both;
+  }
+  .hero-stat {
+    text-align:center; padding:1.5rem 2rem;
+    background:rgba(255,255,255,0.02); border:1px solid var(--border);
+    border-radius:4px; position:relative; overflow:hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .hero-stat::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .hero-stat:hover { transform:translateY(-4px); border-color:rgba(201,168,76,0.4); }
+  .hero-stat-val {
+    font-family:'Cormorant Garamond', serif;
+    font-size:2.5rem; font-weight:700; color:var(--gold);
+    display:block; line-height:1;
+  }
+  .hero-stat-label { font-size:0.6rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-top:0.4rem; display:block; }
+  .scroll-hint {
+    position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+    color:var(--text-muted); font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase;
+    animation: pulse 2s ease infinite;
+  }
+  .scroll-hint::after {
+    content:''; width:1px; height:40px;
+    background:linear-gradient(180deg, var(--gold), transparent);
+  }
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+  @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ─── SECTIONS ─── */
+  section { padding:6rem 0; }
+  .container { max-width:1200px; margin:0 auto; padding:0 2rem; }
+  .section-label {
+    font-size:0.6rem; font-weight:700; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--orange); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.75rem;
+  }
+  .section-label::before { content:''; width:24px; height:1px; background:var(--orange); }
+  .section-title {
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(2rem,4vw,3.5rem); font-weight:300; line-height:1.1;
+    margin-bottom:1rem;
+  }
+  .section-title .gold { color:var(--gold); font-style:italic; }
+  .section-desc { color:var(--text-muted); max-width:600px; font-size:0.9rem; line-height:1.8; }
+  .divider { width:60px; height:1px; background:var(--gold); margin:2rem 0; }
+
+  /* ─── THESIS GRID ─── */
+  .thesis-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1.5px;
+    background:var(--border); border:1px solid var(--border);
+    border-radius:6px; overflow:hidden; margin-top:4rem;
+  }
+  .thesis-card {
+    background:var(--dark-2); padding:2.5rem;
+    transition:background 0.3s;
+    position:relative; overflow:hidden;
+  }
+  .thesis-card::after {
+    content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  .thesis-card:hover { background:var(--dark-3); }
+  .thesis-icon { font-size:2rem; margin-bottom:1.25rem; display:block; }
+  .thesis-card h3 { font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--white); margin-bottom:0.75rem; }
+  .thesis-card p { font-size:0.82rem; color:var(--text-muted); line-height:1.8; }
+  .thesis-tag {
+    display:inline-block; margin-top:1rem;
+    padding:0.2rem 0.6rem; border-radius:2px;
+    font-size:0.6rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
+  }
+  .tag-gold { background:rgba(201,168,76,0.1); color:var(--gold); }
+  .tag-orange { background:rgba(224,90,28,0.1); color:var(--orange-light); }
+
+  /* ─── NUMBERS STRIP ─── */
+  .numbers-strip {
+    background:linear-gradient(135deg, var(--dark-3), var(--dark-4));
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    padding:4rem 0;
+  }
+  .numbers-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:2rem; text-align:center; }
+  .num-item {}
+  .num-val {
+    font-family:'Cormorant Garamond', serif;
+    font-size:3rem; font-weight:700; color:var(--gold); display:block; line-height:1;
+  }
+  .num-unit { font-size:1.2rem; }
+  .num-label { font-size:0.65rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-top:0.5rem; display:block; }
+
+  /* ─── TIMELINE ─── */
+  #timeline { background:var(--dark-2); }
+  .timeline { position:relative; margin-top:4rem; }
+  .timeline::before {
+    content:''; position:absolute; left:50%; top:0; bottom:0; width:1px;
+    background:linear-gradient(180deg, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
+    transform:translateX(-50%);
+  }
+  .tl-item {
+    display:grid; grid-template-columns:1fr 60px 1fr; gap:0; margin-bottom:3rem;
+    position:relative;
+  }
+  .tl-content {
+    padding:2rem;
+    background:var(--dark-3); border:1px solid var(--border);
+    border-radius:4px; position:relative;
+    transition:border-color 0.3s, transform 0.3s;
+  }
+  .tl-content:hover { border-color:rgba(201,168,76,0.4); transform:translateY(-3px); }
+  .tl-left { grid-column:1; text-align:right; }
+  .tl-right { grid-column:3; text-align:left; }
+  .tl-center {
+    grid-column:2; display:flex; align-items:flex-start; justify-content:center;
+    padding-top:2rem;
+  }
+  .tl-dot {
+    width:14px; height:14px; border-radius:50%;
+    background:var(--gold); border:2px solid var(--dark);
+    box-shadow:0 0 0 4px rgba(201,168,76,0.2);
+    flex-shrink:0;
+  }
+  .tl-year {
+    font-family:'Cormorant Garamond', serif;
+    font-size:2rem; font-weight:700; color:var(--gold);
+    margin-bottom:0.5rem;
+  }
+  .tl-title { font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--white); margin-bottom:0.75rem; }
+  .tl-text { font-size:0.82rem; color:var(--text-muted); line-height:1.8; }
+  .tl-metric {
+    display:inline-flex; align-items:center; gap:0.4rem;
+    background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2);
+    border-radius:3px; padding:0.25rem 0.6rem;
+    font-size:0.65rem; font-weight:700; color:var(--gold); margin-top:0.75rem;
+  }
+  @media(max-width:768px) {
+    .timeline::before { left:20px; }
+    .tl-item { grid-template-columns:40px 1fr; grid-template-rows:auto; }
+    .tl-left, .tl-right { grid-column:2; text-align:left; }
+    .tl-center { grid-column:1; grid-row:1; padding-top:2rem; }
+  }
+
+  /* ─── PROJECT BRIEF ─── */
+  .brief-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:4rem; align-items:start; }
+  .brief-map {
+    background:var(--dark-3); border:1px solid var(--border);
+    border-radius:6px; padding:2.5rem; position:relative; overflow:hidden;
+  }
+  .brief-map::before {
+    content:''; position:absolute; top:-30%; right:-20%;
+    width:300px; height:300px; border-radius:50%;
+    background:radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .location-visual {
+    width:100%; aspect-ratio:16/10;
+    background:var(--dark-4);
+    border-radius:4px; overflow:hidden;
+    position:relative; margin-bottom:1.5rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .location-visual img { width:100%; height:100%; object-fit:cover; }
+  .distance-chips { display:flex; gap:0.75rem; flex-wrap:wrap; }
+  .chip {
+    display:flex; align-items:center; gap:0.4rem;
+    background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.2);
+    border-radius:20px; padding:0.4rem 0.9rem;
+    font-size:0.7rem; font-weight:600; color:var(--gold);
+  }
+  .chip-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+  .brief-details {}
+  .detail-row {
+    padding:1.25rem 0;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+    display:flex; gap:1rem; align-items:flex-start;
+  }
+  .detail-row:last-child { border-bottom:none; }
+  .detail-icon { font-size:1.25rem; flex-shrink:0; width:2rem; }
+  .detail-label { font-size:0.6rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.25rem; }
+  .detail-val { font-size:0.9rem; font-weight:600; color:var(--white); }
+  .detail-sub { font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem; }
+
+  /* ─── PRODUCT MIX ─── */
+  #product { background:var(--dark); }
+  .product-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5px; background:var(--border); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-top:4rem; }
+  .product-card {
+    background:var(--dark-2); padding:2.5rem 2rem;
+    display:flex; flex-direction:column; gap:1rem;
+    transition:background 0.3s;
+    position:relative;
+  }
+  .product-card:hover { background:var(--dark-3); }
+  .product-card-num {
+    font-family:'Cormorant Garamond', serif;
+    font-size:4rem; font-weight:700;
+    color:rgba(201,168,76,0.1); line-height:1;
+    position:absolute; top:1rem; right:1.5rem;
+  }
+  .product-icon { font-size:2.5rem; }
+  .product-type { font-size:0.65rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; color:var(--orange-light); }
+  .product-title { font-family:'Cormorant Garamond', serif; font-size:2rem; font-weight:600; line-height:1.1; }
+  .product-stats { display:flex; flex-direction:column; gap:0.5rem; }
+  .product-stat { display:flex; align-items:center; gap:0.5rem; font-size:0.8rem; color:var(--text-muted); }
+  .product-stat::before { content:'→'; color:var(--gold); font-size:0.7rem; }
+  .product-highlight { font-family:'Cormorant Garamond', serif; font-size:2.5rem; font-weight:700; color:var(--gold); }
+  .product-highlight span { font-family:'Montserrat', sans-serif; font-size:0.7rem; font-weight:600; color:var(--text-muted); vertical-align:middle; }
+
+  /* ─── DEVELOPER ─── */
+  #developer { background:var(--dark-2); }
+  .dev-layout { display:grid; grid-template-columns:1fr 1fr; gap:4rem; margin-top:4rem; align-items:start; }
+  .dev-card {
+    background:var(--dark-3); border:1px solid var(--border);
+    border-radius:6px; padding:2.5rem; position:relative;
+  }
+  .dev-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+  }
+  .dev-logo { font-family:'Cormorant Garamond', serif; font-size:1.5rem; font-weight:700; color:var(--gold); margin-bottom:0.25rem; }
+  .dev-sub { font-size:0.65rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:2rem; }
+  .dev-metrics { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:2rem; }
+  .dev-metric { background:var(--dark-4); border-radius:3px; padding:1.25rem; }
+  .dev-metric-val { font-family:'Cormorant Garamond', serif; font-size:1.75rem; font-weight:700; color:var(--gold); display:block; }
+  .dev-metric-label { font-size:0.6rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); display:block; margin-top:0.25rem; }
+  .dev-milestone { padding:1rem 0; border-top:1px solid rgba(255,255,255,0.05); }
+  .dev-milestone:last-child { border-top:1px solid rgba(255,255,255,0.05); }
+  .dev-ms-year { font-size:0.65rem; font-weight:700; color:var(--gold); margin-bottom:0.2rem; }
+  .dev-ms-title { font-size:0.8rem; font-weight:600; color:var(--white); margin-bottom:0.2rem; }
+  .dev-ms-text { font-size:0.75rem; color:var(--text-muted); line-height:1.6; }
+
+  /* ─── FINANCIALS ─── */
+  #financials { background:var(--dark); }
+  .fin-layout { display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:4rem; }
+  .fin-table {
+    background:var(--dark-3); border:1px solid var(--border); border-radius:6px; overflow:hidden;
+  }
+  .fin-table-header {
+    background:var(--dark-4); padding:1rem 1.5rem;
+    font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--gold); border-bottom:1px solid var(--border);
+  }
+  .fin-row {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:0.9rem 1.5rem; border-bottom:1px solid rgba(255,255,255,0.04);
+    font-size:0.82rem; transition:background 0.2s;
+  }
+  .fin-row:hover { background:rgba(255,255,255,0.02); }
+  .fin-row.total { background:rgba(201,168,76,0.05); border-top:1px solid rgba(201,168,76,0.2); font-weight:700; }
+  .fin-row-label { color:var(--text-muted); }
+  .fin-row-val { color:var(--white); font-weight:600; }
+  .fin-row.total .fin-row-val { color:var(--gold); }
+  .irr-display {
+    grid-column:1/-1;
+    background:linear-gradient(135deg, var(--dark-3), var(--dark-4));
+    border:1px solid rgba(201,168,76,0.3); border-radius:6px;
+    padding:3rem; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .irr-display::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse at center, rgba(201,168,76,0.05) 0%, transparent 70%);
+  }
+  .irr-val {
+    font-family:'Cormorant Garamond', serif;
+    font-size:6rem; font-weight:700; color:var(--gold);
+    line-height:1; display:block;
+  }
+  .irr-label { font-size:0.7rem; font-weight:700; letter-spacing:0.3em; text-transform:uppercase; color:var(--text-muted); }
+  .irr-sub { font-size:0.85rem; color:var(--text); margin-top:1rem; }
+  .fin-highlights { display:flex; gap:1rem; margin-top:2rem; justify-content:center; flex-wrap:wrap; }
+  .fin-hl {
+    background:var(--dark-4); border:1px solid var(--border); border-radius:4px;
+    padding:1rem 1.5rem; text-align:center;
+  }
+  .fin-hl-val { font-family:'Cormorant Garamond', serif; font-size:1.75rem; font-weight:700; color:var(--gold); display:block; }
+  .fin-hl-label { font-size:0.6rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-top:0.2rem; }
+
+  /* ─── RISK TABLE ─── */
+  #risks { background:var(--dark-2); }
+  .risk-table { margin-top:4rem; border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+  .risk-header {
+    display:grid; grid-template-columns:2fr 100px 3fr;
+    background:var(--dark-4); padding:0.75rem 1.5rem;
+    font-size:0.6rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--text-muted); border-bottom:1px solid var(--border);
+  }
+  .risk-row {
+    display:grid; grid-template-columns:2fr 100px 3fr;
+    padding:1.25rem 1.5rem; border-bottom:1px solid rgba(255,255,255,0.04);
+    align-items:center; transition:background 0.2s;
+  }
+  .risk-row:hover { background:rgba(255,255,255,0.02); }
+  .risk-row:last-child { border-bottom:none; }
+  .risk-name { font-size:0.82rem; font-weight:600; color:var(--white); }
+  .risk-level {
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:0.25rem 0.6rem; border-radius:3px;
+    font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+    width:fit-content;
+  }
+  .level-low { background:rgba(74,222,128,0.1); color:#4ade80; }
+  .level-med { background:rgba(251,191,36,0.1); color:#fbbf24; }
+  .risk-mitigant { font-size:0.78rem; color:var(--text-muted); line-height:1.7; }
+  .risk-summary {
+    background:linear-gradient(135deg, rgba(74,222,128,0.05), rgba(201,168,76,0.05));
+    border:1px solid rgba(74,222,128,0.2); border-radius:4px;
+    padding:1.25rem 1.5rem; margin-top:1.5rem;
+    font-size:0.82rem; color:var(--text); line-height:1.7;
+    display:flex; gap:0.75rem; align-items:flex-start;
+  }
+
+  /* ─── INFRASTRUCTURE ─── */
+  #infrastructure { background:var(--dark); }
+  .infra-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:3rem; }
+  .infra-card {
+    background:var(--dark-3); border:1px solid var(--border); border-radius:4px;
+    padding:1.75rem 1.25rem; text-align:center;
+    transition:transform 0.3s, border-color 0.3s;
+  }
+  .infra-card:hover { transform:translateY(-4px); border-color:rgba(201,168,76,0.3); }
+  .infra-icon { font-size:2rem; margin-bottom:0.75rem; }
+  .infra-name { font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); }
+
+  /* ─── GALLERY ─── */
+  #gallery { background:var(--dark-2); }
+  .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; margin-top:4rem; }
+  .gallery-item {
+    position:relative; overflow:hidden; aspect-ratio:4/3;
+    background:var(--dark-3);
+    cursor:pointer;
+  }
+  .gallery-item.wide { grid-column:span 2; aspect-ratio:8/3; }
+  .gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; }
+  .gallery-item:hover img { transform:scale(1.08); }
+  .gallery-caption {
+    position:absolute; bottom:0; left:0; right:0;
+    background:linear-gradient(transparent, rgba(0,0,0,0.85));
+    padding:2rem 1.25rem 1rem;
+    font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--gold-light);
+    transform:translateY(100%); transition:transform 0.4s ease;
+  }
+  .gallery-item:hover .gallery-caption { transform:translateY(0); }
+  .gallery-placeholder {
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    font-size:3rem; background:var(--dark-4);
+  }
+
+  /* ─── CTA / NAEEM ─── */
+  #naeem {
+    background:linear-gradient(135deg, var(--dark-3), var(--dark-4));
+    border-top:1px solid var(--border);
+  }
+  .naeem-layout { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+  .naeem-desc { font-size:1rem; color:var(--text-muted); line-height:1.9; margin-bottom:2rem; }
+  .naeem-services { display:flex; flex-direction:column; gap:0.5rem; }
+  .service-line { display:flex; align-items:center; gap:0.75rem; font-size:0.8rem; color:var(--text); }
+  .service-line::before { content:'◆'; color:var(--gold); font-size:0.4rem; }
+  .naeem-cta-box {
+    background:var(--dark-2); border:1px solid var(--border); border-radius:6px;
+    padding:3rem; position:relative; overflow:hidden;
+  }
+  .naeem-cta-box::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, var(--orange), var(--gold), var(--orange));
+  }
+  .cta-title { font-family:'Cormorant Garamond', serif; font-size:2.5rem; font-weight:300; margin-bottom:1.5rem; }
+  .cta-points { display:flex; flex-direction:column; gap:1rem; margin-bottom:2.5rem; }
+  .cta-point { display:flex; gap:1rem; align-items:flex-start; }
+  .cta-point-num {
+    font-family:'Cormorant Garamond', serif; font-size:1.5rem; font-weight:700; color:var(--gold);
+    line-height:1; flex-shrink:0; width:2rem;
+  }
+  .cta-point-text { font-size:0.82rem; color:var(--text-muted); line-height:1.7; padding-top:0.1rem; }
+  .btn-primary {
+    display:inline-flex; align-items:center; gap:0.75rem;
+    background:var(--gold); color:var(--dark);
+    padding:0.9rem 2rem; border-radius:3px;
+    font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
+    text-decoration:none; border:none; cursor:pointer;
+    transition:background 0.3s, transform 0.2s;
+  }
+  .btn-primary:hover { background:var(--gold-light); transform:translateY(-2px); }
+
+  /* ─── COLLAPSIBLE ─── */
+  details {
+    border:1px solid var(--border); border-radius:4px;
+    margin-bottom:1rem; overflow:hidden;
+    transition:border-color 0.3s;
+  }
+  details:hover { border-color:rgba(201,168,76,0.3); }
+  details[open] { border-color:rgba(201,168,76,0.4); }
+  summary {
+    padding:1.25rem 1.5rem;
+    background:var(--dark-3);
+    cursor:pointer; list-style:none;
+    display:flex; align-items:center; justify-content:space-between;
+    font-size:0.8rem; font-weight:700; letter-spacing:0.08em;
+    color:var(--white); user-select:none;
+    transition:background 0.2s;
+  }
+  summary:hover { background:var(--dark-4); }
+  summary::after { content:'＋'; color:var(--gold); font-size:1rem; transition:transform 0.3s; }
+  details[open] summary::after { content:'－'; }
+  .details-content { padding:1.5rem; background:var(--dark-2); font-size:0.82rem; color:var(--text-muted); line-height:1.8; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background:var(--dark); border-top:1px solid var(--border);
+    padding:3rem 0; text-align:center;
+  }
+  .footer-logo { font-family:'Cormorant Garamond', serif; font-size:1.5rem; color:var(--gold); margin-bottom:0.5rem; }
+  .footer-text { font-size:0.7rem; color:var(--text-muted); letter-spacing:0.1em; max-width:600px; margin:0.5rem auto; line-height:1.7; }
+  .footer-disclaimer { font-size:0.62rem; color:rgba(154,149,144,0.5); max-width:800px; margin:1.5rem auto 0; line-height:1.7; }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:900px) {
+    .brief-grid, .dev-layout, .fin-layout, .naeem-layout { grid-template-columns:1fr; }
+    .product-grid { grid-template-columns:1fr; }
+    .gallery-grid { grid-template-columns:1fr 1fr; }
+    .gallery-item.wide { grid-column:span 1; aspect-ratio:4/3; }
+    .infra-grid { grid-template-columns:repeat(2,1fr); }
+    .timeline::before { left:16px; }
+    .tl-item { grid-template-columns:32px 1fr; }
+    .tl-left { grid-column:2; text-align:left; }
+    .tl-right { grid-column:2; text-align:left; }
+    .tl-center { grid-column:1; grid-row:1; padding-top:1.5rem; }
+    .risk-header, .risk-row { grid-template-columns:1fr 80px; }
+    .risk-mitigant { grid-column:1/-1; padding-top:0.5rem; }
+    nav { padding:0 1rem; }
+    .nav-links a { padding:0.4rem 0.5rem; font-size:0.6rem; }
+  }
+  @media(max-width:600px) {
+    .hero-stats { flex-direction:column; align-items:center; }
+    .gallery-grid { grid-template-columns:1fr; }
+    .numbers-grid { grid-template-columns:repeat(2,1fr); }
+    .dev-metrics { grid-template-columns:1fr; }
+    .infra-grid { grid-template-columns:repeat(2,1fr); }
+    .nav-links { display:none; }
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity:0; transform:translateY(32px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ─── IMAGE EMBED ─── */
+  .img-frame {
+    border-radius:4px; overflow:hidden;
+    border:1px solid var(--border); background:var(--dark-4);
+  }
+  .img-frame img { width:100%; display:block; }
+  .img-caption {
+    padding:0.6rem 1rem;
+    font-size:0.65rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase;
+    color:var(--text-muted);
+  }
+  
+  /* progress bar */
+  .progress-bar-wrap { background:var(--dark-4); border-radius:2px; height:4px; margin-top:0.5rem; overflow:hidden; }
+  .progress-bar { height:100%; background:linear-gradient(90deg, var(--gold-dark), var(--gold)); border-radius:2px; transition:width 1.5s ease; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">🕌 <span>Masar</span> Makkah</div>
+  <div class="nav-links">
+    <a href="#hero" class="active">Overview</a>
+    <a href="#thesis">Thesis</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#product">Product</a>
+    <a href="#financials">Returns</a>
+    <a href="#risks">Risks</a>
+    <a href="#gallery">Gallery</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div style="position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center">
+    <div class="hero-kaaba-icon">🕋</div>
+    <div class="hero-badge">
+      <span>●</span> April 2026 · NAEEM Holding for Investment
+    </div>
+    <h1 class="hero-title">Masar <span class="accent">Makkah</span></h1>
+    <div class="hero-arabic">مكة المكرمة – وجهة مسار</div>
+    <p class="hero-sub">A 4.8 km linear urban development redefining pilgrimage, hospitality &amp; urban life in the world's holiest city</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-val">2<span style="font-size:1.5rem">Bn</span></span>
+        <span class="hero-stat-label">Muslims Addressable</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">100<span style="font-size:1.5rem">Bn</span></span>
+        <span class="hero-stat-label">SAR Total Value</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">40K<span style="font-size:1.5rem">+</span></span>
+        <span class="hero-stat-label">Hotel Keys</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">40<span style="font-size:1.5rem">%</span></span>
+        <span class="hero-stat-label">Estimated IRR</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll to explore</div>
+</section>
+
+<!-- NUMBERS STRIP -->
+<div class="numbers-strip">
+  <div class="container">
+    <div class="numbers-grid">
+      <div class="num-item reveal">
+        <span class="num-val">1.2<span class="num-unit">Mn</span></span>
+        <span class="num-label">Total SQM</span>
+      </div>
+      <div class="num-item reveal">
+        <span class="num-val">205</span>
+        <span class="num-label">Land Plots</span>
+      </div>
+      <div class="num-item reveal">
+        <span class="num-val">550<span class="num-unit">m</span></span>
+        <span class="num-label">from Al-Haram</span>
+      </div>
+      <div class="num-item reveal">
+        <span class="num-val">30<span class="num-unit">M+</span></span>
+        <span class="num-label">Annual Pilgrims</span>
+      </div>
+      <div class="num-item reveal">
+        <span class="num-val">SAR 22<span class="num-unit">Bn</span></span>
+        <span class="num-label">Infrastructure Invested</span>
+      </div>
+      <div class="num-item reveal">
+        <span class="num-val">3.65<span class="num-unit">km</span></span>
+        <span class="num-label">Boulevard Length</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INVESTMENT THESIS -->
+<section id="thesis">
+  <div class="container">
+    <div class="section-label">Investment Thesis</div>
+    <h2 class="section-title">Structurally <span class="gold">Irreplaceable</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">Masar Makkah represents a convergence of faith-driven demand, sovereign backing, and historic regulatory change — creating an investment opportunity unlike any other in global real estate.</p>
+
+    <div class="thesis-grid reveal">
+      <div class="thesis-card">
+        <span class="thesis-icon">🏛️</span>
+        <h3>Captive, Inelastic Demand</h3>
+        <p>30M+ pilgrims annually — government-managed, constitutionally protected flow. Unlike commercial real estate, demand here is tied to religious obligation, not economic cycles. The Hajj and Umrah are pillars of Islam practiced by 1.8 billion Muslims globally.</p>
+        <span class="thesis-tag tag-gold">Non-Cyclical</span>
+      </div>
+      <div class="thesis-card">
+        <span class="thesis-icon">🌍</span>
+        <h3>2 Billion Muslims — New Owners</h3>
+        <p>Historic regulatory change: non-Saudi Muslims can now own property in Makkah for the first time in history. This opens the world's largest faith-based buyer pool ever created — a structural demand shift with no precedent in global real estate markets.</p>
+        <span class="thesis-tag tag-orange">Regulatory Catalyst</span>
+      </div>
+      <div class="thesis-card">
+        <span class="thesis-icon">🏆</span>
+        <h3>Trophy Asset — Inside الحَرَم</h3>
+        <p>Not near the Haram. Inside it. Owners inherit these assets across generations. The value floor is structural and permanent — no other real estate on Earth carries the same spiritual, cultural, and historical weight as proximity to the Kaaba.</p>
+        <span class="thesis-tag tag-gold">Generational Asset</span>
+      </div>
+      <div class="thesis-card">
+        <span class="thesis-icon">🛡️</span>
+        <h3>Sovereign A/Stable Backing</h3>
+        <p>Royal Decree foundation. Embedded in Vision 2030. Saudi Arabia rated A/Stable by S&P. The developer Umm Al-Qura was founded by Royal Decree in 2012 with government continuity structurally guaranteed. PIF backing provides institutional credibility.</p>
+        <span class="thesis-tag tag-gold">Sovereign Guarantee</span>
+      </div>
+      <div class="thesis-card">
+        <span class="thesis-icon">📈</span>
+        <h3>Asymmetric Upside Ahead</h3>
+        <p>Currently in asset monetisation phase. Future inflection point: 40,000+ hotel keys at stabilised occupancy transforms the entire platform into a recurring yield machine. Early investors capture the full value creation curve from pre-stabilisation to maturity.</p>
+        <span class="thesis-tag tag-orange">Value Creation</span>
+      </div>
+      <div class="thesis-card">
+        <span class="thesis-icon">💎</span>
+        <h3>Defensible Demand → Yield</h3>
+        <p>The Haram draws pilgrims regardless of global economic conditions — proven through every historical disruption. This yield story is unlike any other in real estate: demand is constitutionally protected, spiritually mandated, and government-facilitated.</p>
+        <span class="thesis-tag tag-gold">Yield Story</span>
+      </div>
+    </div>
+
+    <!-- Collapsible background -->
+    <div style="margin-top:3rem">
+      <details class="reveal">
+        <summary>📖 Background: The Historic Regulatory Change</summary>
+        <div class="details-content">
+          <p>For centuries, property ownership in Makkah and Madinah was restricted exclusively to Saudi nationals. The recent regulatory amendment allowing non-Saudi Muslims to own property within the Haram boundaries represents one of the most significant policy shifts in the history of Islamic real estate. This change was enacted under Vision 2030 with the explicit goal of deepening the spiritual connection between the global Muslim community and the two holy cities. The addressable market of 2 billion Muslims — spanning Indonesia, Pakistan, Bangladesh, India, Turkey, Egypt, Nigeria, and dozens of other nations — now has legal access to ownership in Islam's holiest city for the first time in modern history.</p>
+        </div>
+      </details>
+      <details class="reveal">
+        <summary>📊 Vision 2030 Alignment</summary>
+        <div class="details-content">
+          <p>Masar Makkah is a flagship component of Saudi Vision 2030's pilgrimage economy strategy. The Vision targets growing annual pilgrims from ~13M (pre-COVID baseline) to 30M by 2030, and 150M Umrah visitors annually. This is underpinned by SAR 1 trillion+ in tourism infrastructure investment, including NEOM, the Red Sea Project, and the Haramain High Speed Railway. Masar sits at the nexus of all these initiatives — the infrastructure is already built, the demand is already coming, and the regulatory framework now allows global Muslim capital to participate.</p>
+        </div>
+      </details>
+      <details class="reveal">
+        <summary>🏙️ What "Linear Urban Development" Means</summary>
+        <div class="details-content">
+          <p>Masar Makkah is designed as a 4.8 km pedestrian-friendly corridor — a "path" (مسار) connecting key nodes of the pilgrimage experience. Unlike traditional urban blocks, the linear format creates a continuous journey from transportation hubs through retail, residential, hospitality, and ultimately to Al-Haram. The 3.65km boulevard forms the spine, flanked by towers, plazas, and the King Abdullah Mosque. This urban typology maximises foot traffic, dwell time, and commercial activation along the entire length — similar in concept to Barcelona's La Rambla or Dubai's Dubai Creek Harbour, but at a scale and significance unmatched globally.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <div class="section-label">Developer Journey</div>
+    <h2 class="section-title">Umm Al-Qura <span class="gold">Milestones</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">Over 13 years, Umm Al-Qura has systematically built the foundation for what will become the world's most spiritually significant real estate development.</p>
+
+    <div class="timeline reveal">
+
+      <div class="tl-item">
+        <div class="tl-content tl-left">
+          <div class="tl-year">2012</div>
+          <div class="tl-title">Founded by Royal Decree</div>
+          <p class="tl-text">Umm Al-Qura for Development and Construction Co. established by Royal Decree. Closed joint venture in Makkah with initial capital of SAR 916M. Received mandate to develop the western corridor of Makkah — the critical axis between the Haramain Rail Station and Masjid Al-Haram.</p>
+          <div class="tl-metric">⚡ Initial Capital: SAR 916M</div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div></div>
+        <div style="grid-column:3"></div>
+      </div>
+
+      <div class="tl-item">
+        <div style="grid-column:1"></div>
+        <div class="tl-center"><div class="tl-dot"></div></div>
+        <div class="tl-content tl-right">
+          <div class="tl-year">2012–17</div>
+          <div class="tl-title">Phase 1 — Land Clearance</div>
+          <p class="tl-text">The most operationally complex phase: clearing 3,600+ existing properties to create a blank canvas for the master plan. Over SAR 10 billion was paid in compensation to beneficiaries — a testament to the sovereign will behind this project. Relocation was managed with full government coordination across multiple years.</p>
+          <div class="tl-metric">🏗️ 3,600+ Properties Cleared · SAR 10B+ Compensation</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-content tl-left">
+          <div class="tl-year">2017–23</div>
+          <div class="tl-title">Phase 2 — SAR 22B Infrastructure</div>
+          <p class="tl-text">Six years of civil and utility infrastructure spanning roads, tunnels, district cooling, electricity, sewage, telecom networks, rainwater collection, and irrigation systems. All 205 development plots were fully serviced and connected. SAR 22B of the SAR 24B total infrastructure budget was deployed — the most capital-intensive phase is complete.</p>
+          <div class="tl-metric">🔧 205 Plots Serviced · SAR 22B Deployed</div>
+          <div style="margin-top:1rem">
+            <div style="font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem">Infrastructure Progress</div>
+            <div class="progress-bar-wrap"><div class="progress-bar" style="width:92%"></div></div>
+            <div style="font-size:0.6rem;color:var(--gold);margin-top:0.2rem">92% Complete (SAR 22B / SAR 24B)</div>
+          </div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div></div>
+        <div style="grid-column:3"></div>
+      </div>
+
+      <div class="tl-item">
+        <div style="grid-column:1"></div>
+        <div class="tl-center"><div class="tl-dot"></div></div>
+        <div class="tl-content tl-right">
+          <div class="tl-year">2022+</div>
+          <div class="tl-title">Phase 3 — Sales &amp; Development</div>
+          <p class="tl-text">Commercial activation begins. 74 of 205 plots contracted (36% sold). 22 deals closed in 2025 alone, marking accelerating sales velocity. Revenue surged to SAR 2.9B (+59% YoY) as buyer momentum builds. The project transitions from infrastructure investment to revenue generation.</p>
+          <div class="tl-metric">📦 74/205 Plots Contracted · Revenue +59%</div>
+          <div style="margin-top:1rem">
+            <div style="font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem">Sales Progress (74/205 Plots)</div>
+            <div class="progress-bar-wrap"><div class="progress-bar" style="width:36%"></div></div>
+            <div style="font-size:0.6rem;color:var(--gold);margin-top:0.2rem">36% Contracted — Early Phase Opportunity</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-content tl-left">
+          <div class="tl-year">2025</div>
+          <div class="tl-title">Capital Raised to SAR 14.4B</div>
+          <p class="tl-text">Operational phase fully underway. Capital raised to SAR 14.4B. Net profit reaches SAR 983M (+97% YoY). Cash flow of SAR 2.15B represents 5× growth, enabling Umm Al-Qura to reduce external debt dependence. Listed on Saudi Exchange (Tadawul), providing full transparency and liquidity for institutional investors.</p>
+          <div class="tl-metric">💰 SAR 14.4B Capital · SAR 983M Net Profit · 5× Cash Flow</div>
+        </div>
+        <div class="tl-center"><div class="tl-dot" style="background:var(--orange);box-shadow:0 0 0 4px rgba(224,90,28,0.3)"></div></div>
+        <div style="grid-column:3"></div>
+      </div>
+
+      <div class="tl-item">
+        <div style="grid-column:1"></div>
+        <div class="tl-center"><div class="tl-dot" style="background:var(--orange-light);box-shadow:0 0 0 6px rgba(224,90,28,0.2);width:18px;height:18px"></div></div>
+        <div class="tl-content tl-right" style="border-color:rgba(224,90,28,0.3)">
+          <div class="tl-year" style="color:var(--orange-light)">2026+</div>
+          <div class="tl-title">Hotels Open · Recurring Yield Phase</div>
+          <p class="tl-text">Hotels begin opening (2026+). As the 40,000+ key hospitality portfolio reaches stabilised occupancy, the revenue model transforms from land sales to recurring hospitality yield. Residential towers complete. Retail and F&B activation. The Masar platform reaches full operational maturity — a self-reinforcing pilgrimage economy.</p>
+          <div class="tl-metric">🏨 40K+ Hotel Keys · Recurring Yield Inflection</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT BRIEF -->
+<section id="brief" style="background:var(--dark-2)">
+  <div class="container">
+    <div class="section-label">Project Brief</div>
+    <h2 class="section-title">Strategic <span class="gold">Location</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">Extending over 1.2 million SQM, Masar's location confers a status no money can replicate. Proximity to Masjid Al-Haram and Al-Haramain High Speed Rail Station places it at the epicentre of global Islamic pilgrimage.</p>
+
+    <div class="brief-grid reveal">
+      <div class="brief-map">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:1.5rem">Zone Overview</h3>
+        <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem">
+          <div style="background:var(--dark-4);border:1px solid var(--border);border-radius:4px;padding:1.25rem;border-left:3px solid var(--gold)">
+            <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem">Zone 1 — Masar Al-Haram</div>
+            <div style="font-size:0.8rem;color:var(--text-muted)">Closest proximity to Masjid Al-Haram. Highest density hospitality and luxury residential. Premium pricing commanded by direct Kaaba-view access.</div>
+          </div>
+          <div style="background:var(--dark-4);border:1px solid var(--border);border-radius:4px;padding:1.25rem;border-left:3px solid var(--gold-dark)">
+            <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:0.4rem">Zone 2 — The Opportunity Plot</div>
+            <div style="font-size:0.8rem;color:var(--text-muted)">Location of the specific 4,948 SQM JV investment plot. 5-minute walk to Train Station, 7-minute walk to King Abdullah Mosque. Prime mixed-use branded residence site.</div>
+          </div>
+          <div style="background:var(--dark-4);border:1px solid var(--border);border-radius:4px;padding:1.25rem;border-left:3px solid var(--mid)">
+            <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.4rem">Zone 3 — Outer Masar</div>
+            <div style="font-size:0.8rem;color:var(--text-muted)">Residential-focused zone with service apartments and retail. More accessible price points serving the broader pilgrim and resident population.</div>
+          </div>
+        </div>
+        <div class="distance-chips">
+          <div class="chip"><span class="chip-dot"></span>550m from Masjid Al-Haram</div>
+          <div class="chip"><span class="chip-dot"></span>100m from Haramain Station</div>
+          <div class="chip"><span class="chip-dot"></span>1.2Mn SQM Total Area</div>
+        </div>
+      </div>
+      <div class="brief-details">
+        <div class="detail-row">
+          <div class="detail-icon">📍</div>
+          <div>
+            <div class="detail-label">Location</div>
+            <div class="detail-val">Heart of Makkah, KSA</div>
+            <div class="detail-sub">Western corridor, adjacent to Masjid Al-Haram</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">🏢</div>
+          <div>
+            <div class="detail-label">Developer</div>
+            <div class="detail-val">Umm Al-Qura Development</div>
+            <div class="detail-sub">PIF-backed, Tadawul listed, founded by Royal Decree</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">🗺️</div>
+          <div>
+            <div class="detail-label">Development Type</div>
+            <div class="detail-val">4.8km Linear Mixed-Use</div>
+            <div class="detail-sub">Hospitality · Residential · Retail · Healthcare</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">🚇</div>
+          <div>
+            <div class="detail-label">Connectivity</div>
+            <div class="detail-val">Al-Haramain High Speed Rail</div>
+            <div class="detail-sub">Connects Makkah–Madinah via Jeddah; 100m from station</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">📐</div>
+          <div>
+            <div class="detail-label">Project Zones</div>
+            <div class="detail-val">3 Distinct Zones</div>
+            <div class="detail-sub">Masar Al-Haram · Zone 2 · Outer Masar</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">🏘️</div>
+          <div>
+            <div class="detail-label">Product Mix</div>
+            <div class="detail-val">~24K Hotel + 13K Residential</div>
+            <div class="detail-sub">Plus 19K service apartments · 318K SQM retail</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">🏥</div>
+          <div>
+            <div class="detail-label">Healthcare</div>
+            <div class="detail-val">1 General Hospital</div>
+            <div class="detail-sub">200-bed facility serving residents and pilgrims</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">🛣️</div>
+          <div>
+            <div class="detail-label">Open Spaces</div>
+            <div class="detail-val">158,000 SQM</div>
+            <div class="detail-sub">Plazas · Pedestrian zones · Landscaped areas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT MIX -->
+<section id="product">
+  <div class="container">
+    <div class="section-label">World-Class Product Mix</div>
+    <h2 class="section-title">Complete Urban <span class="gold">Ecosystem</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">From prayer to luxury dining, from ownership to pilgrimage — Masar Makkah delivers every element of modern urban life within the world's holiest precinct.</p>
+
+    <div class="product-grid reveal">
+      <div class="product-card">
+        <div class="product-card-num">01</div>
+        <span class="product-icon">🏨</span>
+        <div class="product-type">Hospitality</div>
+        <div class="product-title">Hotel Keys</div>
+        <div class="product-highlight">24,000 <span>keys across</span></div>
+        <div class="product-stats">
+          <div class="product-stat">58 hospitality towers total</div>
+          <div class="product-stat">Luxury to mid-scale segments</div>
+          <div class="product-stat">Kaaba-view premium suites</div>
+          <div class="product-stat">International brand operators expected</div>
+          <div class="product-stat">Opens 2026+; stabilised yield machine</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-num">02</div>
+        <span class="product-icon">🏠</span>
+        <div class="product-type">Residential</div>
+        <div class="product-title">Living Spaces</div>
+        <div class="product-highlight">32,000 <span>units total</span></div>
+        <div class="product-stats">
+          <div class="product-stat">82 residential towers · ~13,000 units</div>
+          <div class="product-stat">59 service apartment towers · 19,000 apts</div>
+          <div class="product-stat">First-ever non-Saudi Muslim ownership</div>
+          <div class="product-stat">Generational wealth transfer vehicle</div>
+          <div class="product-stat">Branded residence JV opportunity</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-num">03</div>
+        <span class="product-icon">🛍️</span>
+        <div class="product-type">Retail &amp; Commercial</div>
+        <div class="product-title">Fashion &amp; Dining</div>
+        <div class="product-highlight">318K <span>SQM retail</span></div>
+        <div class="product-stats">
+          <div class="product-stat">Luxury fashion: LV · Dior · Chanel</div>
+          <div class="product-stat">Masar Mall as anchor destination</div>
+          <div class="product-stat">Rooftop dining with Kaaba views</div>
+          <div class="product-stat">Administrative buildings included</div>
+          <div class="product-stat">Fashion Zone along 3.65km boulevard</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-num">04</div>
+        <span class="product-icon">🕌</span>
+        <div class="product-type">Spiritual &amp; Civic</div>
+        <div class="product-title">Sacred Amenities</div>
+        <div class="product-highlight">King <span>Abdullah Mosque</span></div>
+        <div class="product-stats">
+          <div class="product-stat">King Abdullah Mosque as centrepiece</div>
+          <div class="product-stat">550m pedestrian walk to Masjid Al-Haram</div>
+          <div class="product-stat">1 general hospital · 200 beds</div>
+          <div class="product-stat">158K SQM open public spaces</div>
+          <div class="product-stat">Full pilgrimage infrastructure integration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEVELOPER -->
+<section id="developer">
+  <div class="container">
+    <div class="section-label">The Developer</div>
+    <h2 class="section-title">Umm Al-Qura — <span class="gold">Sovereign Credentials</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">A publicly listed developer on the Saudi Exchange (Tadawul), Umm Al-Qura is the sole owner, developer, and operator of all 205 Masar plots — providing investors with single-counterparty simplicity and sovereign-level accountability.</p>
+
+    <div class="dev-layout reveal">
+      <div class="dev-card">
+        <div class="dev-logo">Umm Al-Qura</div>
+        <div class="dev-sub">أم القرى للتطوير والإنشاء · Development &amp; Construction</div>
+        <div class="dev-metrics">
+          <div class="dev-metric">
+            <span class="dev-metric-val">SAR 14.4B</span>
+            <span class="dev-metric-label">Paid-In Capital</span>
+          </div>
+          <div class="dev-metric">
+            <span class="dev-metric-val">SAR 2.9B</span>
+            <span class="dev-metric-label">FY2025 Revenue</span>
+          </div>
+          <div class="dev-metric">
+            <span class="dev-metric-val">SAR 983M</span>
+            <span class="dev-metric-label">Net Profit FY2025</span>
+          </div>
+          <div class="dev-metric">
+            <span class="dev-metric-val">5×</span>
+            <span class="dev-metric-label">Cash Flow Growth</span>
+          </div>
+        </div>
+        <div style="background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:4px;padding:1rem;font-size:0.8rem;color:var(--text);line-height:1.7;margin-bottom:1rem">
+          <strong style="color:var(--gold)">Sole Developer:</strong> Umm Al-Qura is the exclusive owner, developer, and operator of all 205 Masar plots — ensuring unified vision and execution across the entire 1.2Mn SQM development.
+        </div>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+          <span class="thesis-tag tag-gold">Tadawul Listed</span>
+          <span class="thesis-tag tag-gold">PIF Backed</span>
+          <span class="thesis-tag tag-orange">Royal Decree Founded</span>
+          <span class="thesis-tag tag-gold">A/Stable KSA</span>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:1.5rem;color:var(--white)">Company Milestones</h3>
+        <div class="dev-milestone">
+          <div class="dev-ms-year">2012</div>
+          <div class="dev-ms-title">Founded by Royal Decree · Initial Capital SAR 916M</div>
+          <div class="dev-ms-text">JV closed in Makkah with mandate to develop the western corridor.</div>
+        </div>
+        <div class="dev-milestone">
+          <div class="dev-ms-year">2012–2017</div>
+          <div class="dev-ms-title">Phase 1 — Land Clearance · 3,600+ Properties</div>
+          <div class="dev-ms-text">SAR 10B+ paid in compensation. Most operationally complex phase complete.</div>
+        </div>
+        <div class="dev-milestone">
+          <div class="dev-ms-year">2017–2023</div>
+          <div class="dev-ms-title">Phase 2 — SAR 22B Infrastructure Investment</div>
+          <div class="dev-ms-text">All 205 plots serviced with roads, utilities, tunnels, and district cooling.</div>
+        </div>
+        <div class="dev-milestone">
+          <div class="dev-ms-year">2022+</div>
+          <div class="dev-ms-title">Phase 3 — 74 Plots Contracted (36%) · 22 Deals in 2025</div>
+          <div class="dev-ms-text">Revenue SAR 2.9B (+59%). Sales momentum accelerating.</div>
+        </div>
+        <div class="dev-milestone">
+          <div class="dev-ms-year">2025</div>
+          <div class="dev-ms-title">Capital Raised to SAR 14.4B · Profit +97%</div>
+          <div class="dev-ms-text">Cash flow SAR 2.15B (5×). Operational phase. Reduced external financing.</div>
+        </div>
+
+        <div style="margin-top:2rem">
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin-bottom:1rem;color:var(--white)">Sales Partner: Coldwell Banker</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem">
+            <div style="text-align:center;background:var(--dark-3);border:1px solid var(--border);border-radius:4px;padding:1rem">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gold)">49</div>
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted)">Countries</div>
+            </div>
+            <div style="text-align:center;background:var(--dark-3);border:1px solid var(--border);border-radius:4px;padding:1rem">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gold)">100K</div>
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted)">Professionals</div>
+            </div>
+            <div style="text-align:center;background:var(--dark-3);border:1px solid var(--border);border-radius:4px;padding:1rem">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gold)">100</div>
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted)">Yrs Experience</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCIALS -->
+<section id="financials">
+  <div class="container">
+    <div class="section-label">Feasibility &amp; Returns</div>
+    <h2 class="section-title">The <span class="gold">Investment Case</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">The specific JV opportunity targets a branded residence on a 4,948 SQM plot in Zone 2. The model leverages off-plan sales, debt, and equity to deliver exceptional risk-adjusted returns.</p>
+
+    <div class="fin-layout reveal">
+
+      <div class="irr-display">
+        <span class="irr-val">40%</span>
+        <span class="irr-label">Estimated Internal Rate of Return</span>
+        <p class="irr-sub">At SAR 40.6K/SQM average selling price. Reaches 42% IRR at SAR 42K/SQM. Returns realised upon fund termination.</p>
+        <div class="fin-highlights">
+          <div class="fin-hl">
+            <span class="fin-hl-val">2.7×</span>
+            <span class="fin-hl-label">Est. Cash-on-Cash</span>
+          </div>
+          <div class="fin-hl">
+            <span class="fin-hl-val">SAR 1.95Bn</span>
+            <span class="fin-hl-label">Total Project Sales</span>
+          </div>
+          <div class="fin-hl">
+            <span class="fin-hl-val">SAR 40.6K</span>
+            <span class="fin-hl-label">Avg Selling Price/SQM</span>
+          </div>
+          <div class="fin-hl">
+            <span class="fin-hl-val">SAR 7.2K</span>
+            <span class="fin-hl-label">Avg Hard Cost/SQM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fin-table">
+        <div class="fin-table-header">Project Assumptions (SAR '000)</div>
+        <div class="fin-row"><span class="fin-row-label">Land Area</span><span class="fin-row-val">4,948 SQM</span></div>
+        <div class="fin-row"><span class="fin-row-label">Land Cost (39%)</span><span class="fin-row-val">SAR 414,034K</span></div>
+        <div class="fin-row"><span class="fin-row-label">Construction Costs (48%)</span><span class="fin-row-val">SAR 509,678K</span></div>
+        <div class="fin-row"><span class="fin-row-label">Soft Costs (13%)</span><span class="fin-row-val">SAR 142,710K</span></div>
+        <div class="fin-row total"><span class="fin-row-label">Total Project Cost</span><span class="fin-row-val">SAR 1.066Bn</span></div>
+        <div class="fin-row" style="background:rgba(255,255,255,0.01)"><span class="fin-row-label">Total BUA</span><span class="fin-row-val">86,000 SQM</span></div>
+        <div class="fin-row"><span class="fin-row-label">Residential BUA</span><span class="fin-row-val">56,000 SQM</span></div>
+        <div class="fin-row"><span class="fin-row-label">Construction Period</span><span class="fin-row-val">3 Years</span></div>
+      </div>
+
+      <div class="fin-table">
+        <div class="fin-table-header">Source of Funding (SAR '000)</div>
+        <div class="fin-row"><span class="fin-row-label">In-Kind Equity (18%)</span><span class="fin-row-val">SAR 188,722K</span></div>
+        <div class="fin-row"><span class="fin-row-label">Cash Equity (23%)</span><span class="fin-row-val">SAR 240,203K</span></div>
+        <div class="fin-row"><span class="fin-row-label">Off-Plan Sales (23%)</span><span class="fin-row-val">SAR 242,921K</span></div>
+        <div class="fin-row"><span class="fin-row-label">Debt Financing (37%)</span><span class="fin-row-val">SAR 394,576K</span></div>
+        <div class="fin-row total"><span class="fin-row-label">Total Funding</span><span class="fin-row-val">SAR 1.066Bn</span></div>
+        <div style="padding:1rem 1.5rem;font-size:0.75rem;color:var(--text-muted);line-height:1.7;border-top:1px solid rgba(255,255,255,0.04)">
+          Off-plan sales subject to regulatory approvals under WAFI framework — limits execution &amp; development risk. Sales collections tied to construction completion milestones.
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:3rem">
+      <details class="reveal">
+        <summary>📐 Development Model Explained</summary>
+        <div class="details-content">
+          <p><strong style="color:var(--gold)">Structure:</strong> The specific opportunity is to develop a branded residence project via a Joint Venture structured inside a fund. The JV will acquire one of the 131 remaining unsold plots — specifically a 4,948 SQM site strategically located in Zone 2, adjacent to the Haramain Train Station, Mall, and King Abdullah Mosque.</p><br>
+          <p><strong style="color:var(--gold)">WAFI Compliance:</strong> All off-plan sales in Saudi Arabia operate under the WAFI regulatory framework (Wafi Programme for Off-Plan Sales), which ties sales collections to construction milestones — protecting buyers and limiting developer risk. This framework provides a SAR 242M+ pre-committed revenue stream before construction completion.</p><br>
+          <p><strong style="color:var(--gold)">Returns Structure:</strong> Returns are realised upon fund termination. The model assumes no dividends during the fund life — all cash flow is reinvested to maximise the final equity return. At the base case (SAR 40.6K/SQM), the project generates SAR 1.95B in gross sales against SAR 650M in development costs, producing a 2.7× cash-on-cash return and 40% IRR. A modest 3% price improvement to SAR 42K/SQM lifts the IRR to 42%.</p>
+        </div>
+      </details>
+      <details class="reveal">
+        <summary>🌍 Comparable Transactions &amp; Pricing Context</summary>
+        <div class="details-content">
+          <p>The SAR 40,600/SQM base case pricing for Masar Makkah compares favourably against premium real estate in comparable Islamic destination cities. Properties in central Makkah — particularly those with Haram proximity — are effectively uncapped in their pricing ceiling due to the unique spiritual and regulatory exclusivity. The non-Saudi ownership change means international buyers from Indonesia (270M Muslims), Pakistan (230M), Bangladesh (170M), India (200M+), and Turkey (80M) now represent a new price-competitive demand pool. This structural demand increase, combined with limited supply at the Haram perimeter, creates durable upward pressure on per-SQM values throughout the project lifecycle.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- RISKS -->
+<section id="risks">
+  <div class="container">
+    <div class="section-label">Risk Assessment</div>
+    <h2 class="section-title">Risks &amp; <span class="gold">Mitigants</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">A responsible investment thesis acknowledges every material risk. At Masar, structural factors significantly bound and mitigate each risk — producing an overall risk profile that is LOW for a project of this scale.</p>
+
+    <div class="risk-table reveal">
+      <div class="risk-header">
+        <span>Risk Factor</span>
+        <span>Level</span>
+        <span>Mitigant</span>
+      </div>
+      <div class="risk-row">
+        <div class="risk-name">Execution &amp; Construction</div>
+        <div><span class="risk-level level-med">MEDIUM</span></div>
+        <div class="risk-mitigant">200+ plots across independent developers distributes execution risk. Infrastructure already complete — the hardest phase is done. No single-point-of-failure in construction across the master development.</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-name">Delivery Timeline Slippage</div>
+        <div><span class="risk-level level-med">MEDIUM</span></div>
+        <div class="risk-mitigant">Delays in individual towers do not impair platform value. Land retains intrinsic worth regardless of build pace. The 3-year construction timeline built into the JV model provides buffer.</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-name">Revenue Concentration</div>
+        <div><span class="risk-level level-med">MEDIUM</span></div>
+        <div class="risk-mitigant">Current revenue dominated by land sales. As hotels open (2026+), recurring hospitality income diversifies the base significantly. 40K+ keys at stabilisation creates durable, diversified yield.</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-name">Pilgrimage Quota Risk</div>
+        <div><span class="risk-level level-low">LOW</span></div>
+        <div class="risk-mitigant">KSA Vision 2030 targets 30M pilgrims by 2030 vs. current ~13M. Government has consistently expanded quotas over decades. Counter-directional shift is implausible given sovereign mandate.</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-name">Geopolitical / Sovereign</div>
+        <div><span class="risk-level level-low">LOW</span></div>
+        <div class="risk-mitigant">Saudi Arabia rated A/Stable by S&P. Located in Islam's holiest city — political disruption risk is among the lowest globally. The Haramain has been protected by successive Saudi governments for centuries.</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-name">Financing / Rate Risk</div>
+        <div><span class="risk-level level-low">LOW</span></div>
+        <div class="risk-mitigant">Umm Al-Qura reduced external financing in 2025, relying on SAR 2.15B self-generated cash flow. Lower rate sensitivity. Project JV uses off-plan WAFI sales to pre-fund construction, reducing debt reliance.</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-name">Liquidity / Exit Risk</div>
+        <div><span class="risk-level level-low">LOW</span></div>
+        <div class="risk-mitigant">Umm Al-Qura listed on Tadawul providing secondary market. Global Muslim buyer pool (2B+) creates deep demand for resale. Hard asset in irreplaceable location serves as permanent collateral floor.</div>
+      </div>
+    </div>
+
+    <div class="risk-summary reveal">
+      <span style="font-size:1.5rem">✅</span>
+      <div><strong style="color:var(--white)">Overall Risk Profile: LOW for a project of this scale.</strong> Sovereign backing + non-cyclical demand + irreplaceable location + hard-asset collateral + WAFI-regulated off-plan sales + distributed construction across 205 independent plots = a risk-adjusted return profile that is structurally superior to conventional real estate investments at comparable IRR targets.</div>
+    </div>
+  </div>
+</section>
+
+<!-- INFRASTRUCTURE -->
+<section id="infrastructure">
+  <div class="container">
+    <div class="section-label">Infrastructure</div>
+    <h2 class="section-title">SAR 22 Billion <span class="gold">Already Deployed</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">Over 12 years, Umm Al-Qura has built world-class infrastructure across all 205 plots — the highest-risk phase is complete before investor capital is deployed.</p>
+
+    <div class="infra-grid reveal">
+      <div class="infra-card"><div class="infra-icon">⚡</div><div class="infra-name">Electricity Network</div></div>
+      <div class="infra-card"><div class="infra-icon">❄️</div><div class="infra-name">District Cooling</div></div>
+      <div class="infra-card"><div class="infra-icon">🗑️</div><div class="infra-name">Waste Collection</div></div>
+      <div class="infra-card"><div class="infra-icon">📡</div><div class="infra-name">Telecom Network</div></div>
+      <div class="infra-card"><div class="infra-icon">🚿</div><div class="infra-name">Sewage System</div></div>
+      <div class="infra-card"><div class="infra-icon">🌧️</div><div class="infra-name">Rainwater Collection</div></div>
+      <div class="infra-card"><div class="infra-icon">💧</div><div class="infra-name">Water Supply</div></div>
+      <div class="infra-card"><div class="infra-icon">🌱</div><div class="infra-name">Irrigation System</div></div>
+      <div class="infra-card"><div class="infra-icon">🛣️</div><div class="infra-name">Roads Network (367K SQM)</div></div>
+      <div class="infra-card"><div class="infra-icon">🚌</div><div class="infra-name">Public Transportation</div></div>
+      <div class="infra-card"><div class="infra-icon">🚇</div><div class="infra-name">Haramain Rail Link</div></div>
+      <div class="infra-card"><div class="infra-icon">🏗️</div><div class="infra-name">205 Plots Serviced</div></div>
+    </div>
+
+    <div style="margin-top:3rem;background:var(--dark-3);border:1px solid var(--border);border-radius:6px;padding:2.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem" class="reveal">
+      <div>
+        <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.75rem">Infrastructure Budget</div>
+        <div class="progress-bar-wrap" style="height:6px;margin-bottom:0.4rem"><div class="progress-bar" style="width:92%"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.7rem">
+          <span style="color:var(--gold)">SAR 22B Deployed</span>
+          <span style="color:var(--text-muted)">92% of SAR 24B</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.75rem">Plots Serviced</div>
+        <div class="progress-bar-wrap" style="height:6px;margin-bottom:0.4rem"><div class="progress-bar" style="width:100%"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.7rem">
+          <span style="color:var(--gold)">205/205 Plots</span>
+          <span style="color:var(--text-muted)">100% Complete</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.75rem">Plots Contracted</div>
+        <div class="progress-bar-wrap" style="height:6px;margin-bottom:0.4rem"><div class="progress-bar" style="width:36%;background:linear-gradient(90deg,var(--orange),var(--orange-light))"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.7rem">
+          <span style="color:var(--orange-light)">74 Sold (36%)</span>
+          <span style="color:var(--text-muted)">131 Remaining</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-label">Visual Gallery</div>
+    <h2 class="section-title">The <span class="gold">Destination</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">Where spiritual tradition meets modern urban ambition — renderings and imagery from the Masar Makkah development.</p>
+  </div>
+
+  <div class="gallery-grid" style="margin-top:3rem">
+    <div class="gallery-item wide">
+      <div class="gallery-placeholder" style="font-size:5rem;background:linear-gradient(135deg,#1a1408,#2a1e0a)">
+        🕌
+        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.9));padding:3rem 2rem 1.5rem;font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold-light);text-align:left">
+          Masjid Al-Haram & Masar Makkah Towers
+          <div style="font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-top:0.3rem">550m from Masjid Al-Haram · Luxury Towers · Haram View</div>
+        </div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#0a1a2e,#0d2a4a);flex-direction:column;gap:0.5rem">
+        <span>🌙</span>
+        <div style="font-size:0.7rem;color:var(--gold-light);font-weight:600;letter-spacing:0.1em;text-align:center;padding:0 1rem">Boulevard Night Render</div>
+      </div>
+      <div class="gallery-caption">3.65km Boulevard at Night</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#1a0a0a,#2e1010);flex-direction:column;gap:0.5rem">
+        <span>🏙️</span>
+        <div style="font-size:0.7rem;color:var(--gold-light);font-weight:600;letter-spacing:0.1em;text-align:center;padding:0 1rem">Luxury Towers Night View</div>
+      </div>
+      <div class="gallery-caption">Towers & Skyline · Night Render</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#0a1a0a,#102e10);flex-direction:column;gap:0.5rem">
+        <span>🌿</span>
+        <div style="font-size:0.7rem;color:var(--gold-light);font-weight:600;letter-spacing:0.1em;text-align:center;padding:0 1rem">Pedestrian Promenade</div>
+      </div>
+      <div class="gallery-caption">Pedestrian Zone · Open Spaces</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#1a1608,#2e280a);flex-direction:column;gap:0.5rem">
+        <span>🛍️</span>
+        <div style="font-size:0.7rem;color:var(--gold-light);font-weight:600;letter-spacing:0.1em;text-align:center;padding:0 1rem">Luxury Fashion Zone</div>
+      </div>
+      <div class="gallery-caption">Luxury Boulevard · Fashion Zone</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#0a0a1a,#10102e);flex-direction:column;gap:0.5rem">
+        <span>🕋</span>
+        <div style="font-size:0.7rem;color:var(--gold-light);font-weight:600;letter-spacing:0.1em;text-align:center;padding:0 1rem">Aerial Drone · Masar Site</div>
+      </div>
+      <div class="gallery-caption">Real Aerial Drone · Construction Progress</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#1a0a1a,#2a102a);flex-direction:column;gap:0.5rem">
+        <span>🏨</span>
+        <div style="font-size:0.7rem;color:var(--gold-light);font-weight:600;letter-spacing:0.1em;text-align:center;padding:0 1rem">Hotel Interiors</div>
+      </div>
+      <div class="gallery-caption">Hospitality · Hotel Interiors</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#0f0f0a,#1a1a0f);flex-direction:column;gap:0.5rem">
+        <span>🏘️</span>
+        <div style="font-size:0.7rem;color:var(--gold-light);font-weight:600;letter-spacing:0.1em;text-align:center;padding:0 1rem">Residential Towers</div>
+      </div>
+      <div class="gallery-caption">Residential Towers · Street Level</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#0a1410,#10201a);flex-direction:column;gap:0.5rem">
+        <span>🕌</span>
+        <div style="font-size:0.7rem;color:var(--gold-light);font-weight:600;letter-spacing:0.1em;text-align:center;padding:0 1rem">King Abdullah Mosque</div>
+      </div>
+      <div class="gallery-caption">King Abdullah Mosque · Civic Landmark</div>
+    </div>
+  </div>
+</section>
+
+<!-- NAEEM / CTA -->
+<section id="naeem">
+  <div class="container">
+    <div class="naeem-layout reveal">
+      <div>
+        <div class="section-label">Investment Manager</div>
+        <h2 class="section-title" style="font-size:2.5rem">NAEEM <span class="gold">Holding</span></h2>
+        <div class="divider"></div>
+        <p class="naeem-desc">NAEEM Holding for Investment is a leading MENA investment platform providing sophisticated investors access to institutional-grade opportunities across asset management, investment banking, brokerage, and private equity.</p>
+        <div class="naeem-services">
+          <div class="service-line">Asset Management</div>
+          <div class="service-line">Investment Banking</div>
+          <div class="service-line">Brokerage Services</div>
+          <div class="service-line">Private Equity</div>
+          <div class="service-line">Real Estate Fund Structuring</div>
+          <div class="service-line">JV &amp; Development Advisory</div>
+        </div>
+        <div style="margin-top:2rem;padding:1.25rem;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:4px;font-size:0.78rem;color:var(--text-muted);line-height:1.8">
+          <strong style="color:var(--gold)">Note:</strong> This document is a confidential presentation intended for sophisticated investors. It does not constitute an offer or solicitation. All prospective investors should conduct independent due diligence and consult professional advisors regarding suitability for their circumstances.
+        </div>
+      </div>
+      <div class="naeem-cta-box">
+        <div class="cta-title">Why <em style="color:var(--gold)">Now</em> Is the Moment</div>
+        <div class="cta-points">
+          <div class="cta-point">
+            <div class="cta-point-num">1</div>
+            <div class="cta-point-text">Only 131 of 205 plots remain — the opportunity window is narrowing as 22 deals close per year at current velocity.</div>
+          </div>
+          <div class="cta-point">
+            <div class="cta-point-num">2</div>
+            <div class="cta-point-text">Infrastructure is complete. You're deploying into a de-risked, shovel-ready development — not a greenfield with years of uncertainty.</div>
+          </div>
+          <div class="cta-point">
+            <div class="cta-point-num">3</div>
+            <div class="cta-point-text">Hotel openings begin 2026+. Investors entering now will benefit from the full yield transformation as 40K+ keys stabilise.</div>
+          </div>
+          <div class="cta-point">
+            <div class="cta-point-num">4</div>
+            <div class="cta-point-text">The non-Saudi ownership regulation is new — early movers access the asset class before global Muslim capital prices in the change.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+          <span class="thesis-tag tag-gold" style="padding:0.4rem 0.8rem;font-size:0.65rem">40% IRR Target</span>
+          <span class="thesis-tag tag-gold">2.7× Cash-on-Cash</span>
+          <span class="thesis-tag tag-orange">3-Year Construction</span>
+          <span class="thesis-tag tag-gold">WAFI Compliant</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Masar Makkah · مسار مكة</div>
+  <p class="footer-text">Presented by NAEEM Holding for Investment · April 2026</p>
+  <p class="footer-text" style="color:var(--gold);font-size:0.75rem;font-family:'Cormorant Garamond',serif;font-style:italic">
+    "Where Spirituality Meets Everyday Life"
+  </p>
+  <p class="footer-disclaimer">
+    This document is confidential and intended solely for sophisticated investors. It does not constitute investment, tax, or legal advice. All prospective investors must conduct independent evaluation and consult advisors. Past performance is not indicative of future results. All financial projections are estimates and subject to change. This document may not be reproduced or redistributed without written consent of NAEEM Holding for Investment.
+  </p>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if(entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Active nav link
+const sections = document.querySelectorAll('section[id], div[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if(window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.remove('active');
+    if(a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
+});
+
+// Progress bar animation on reveal
+const progressBars = document.querySelectorAll('.progress-bar');
+const pbObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      const bar = entry.target;
+      const width = bar.style.width;
+      bar.style.width = '0';
+      setTimeout(() => bar.style.width = width, 100);
+      pbObserver.unobserve(bar);
+    }
+  });
+}, { threshold: 0.5 });
+progressBars.forEach(bar => pbObserver.observe(bar));
+</script>
+</body>
+</html>
